@@ -18,4 +18,5 @@ ARG PROGRAM_NAME="ls"
 RUN ["/usr/bin/sh", "/opt/docker/run.sh"]
 ENTRYPOINT ["/usr/bin/sh", "/opt/docker/entrypoint.sh"]
 CMD []
-ONBUILD ["/usr/bin/sh", "/opt/docker/onbuild.sh"]
+ONBUILD RUN ["/usr/bin/sh", "/opt/docker/onbuild.sh"]
+ONBUILD USER user
