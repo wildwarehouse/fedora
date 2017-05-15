@@ -25,3 +25,15 @@ https://github.com/wildwarehouse/container-injector is a project that will prepa
 
 When we run this image as 'user', 'user' can not directly invoke 'docker'.
 Instead the user must run a script in '/usr/local/bin' that is allowed (via '/etc/sudoers.d') to run a specific script in '/usr/local/sbin' that run a docker container.
+
+When docker mounts a volume it is ordinarily mounted with root ownership.
+We do not know a way to mount a volume other than as owned by root.
+This image attempts to provide a way around this.
+
+1. Create a volume.
+2. Create a 'user' directory at the top level of the volume.
+3. Change the ownership of the 'user' directory to 'user:user'.
+4. Add content to the 'user' directory.
+5. Mount the volume to '/usr/local/src/{something}'
+
+The image will symbolically link the contents of '/usr/local/src/{something}' to '/home/user/'

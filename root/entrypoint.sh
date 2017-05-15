@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # This file is part of fedora.
 #
 #    chown is free software: you can redistribute it and/or modify
@@ -12,10 +14,12 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with chown .  If not, see <http://www.gnu.org/licenses/>.
-FROM fedora:25
-COPY root /opt/docker/
-ARG PROGRAM_NAME="ls"
-RUN ["/usr/bin/sh", "/opt/docker/run.sh"]
-ENTRYPOINT ["/usr/bin/sh", "/opt/docker/entrypoint.sh"]
-CMD []
-ONBUILD ["/usr/bin/sh", "/opt/docker/onbuild.sh"]
+
+ls -1 /usr/local/src | while read ALPHA
+do
+    ls -1 "/usr/local/src/${ALPHA}/user" | while read BETA
+    do
+        ln --symbolic --force "/usr/local/src/${ALPHA}/user/${BETA}" "/home/user/${BETA}"
+    done
+done &&
+    ( [ -f /opt/docker/program.sh ] && /usr/bin/sh /opt/docker/program.sh "\${@}" ) || bash
