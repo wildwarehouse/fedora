@@ -22,4 +22,4 @@ do
         ln --symbolic --force "/usr/local/src/${ALPHA}/user/${BETA}" "/home/user/${BETA}"
     done
 done &&
-    ( [ -f /opt/docker/program.sh ] && /usr/bin/sh /opt/docker/program.sh "\${@}" ) || bash
+    /usr/bin/sh /opt/docker/program.sh "${@}"

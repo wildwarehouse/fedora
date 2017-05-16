@@ -14,9 +14,9 @@
 #    along with chown .  If not, see <http://www.gnu.org/licenses/>.
 FROM fedora:25
 COPY root /opt/docker/
-ARG PROGRAM_NAME="ls"
 RUN ["/usr/bin/sh", "/opt/docker/run.sh"]
-ENTRYPOINT ["/usr/bin/sh", "/opt/docker/entrypoint.sh"]
-CMD []
-ONBUILD RUN ["/usr/bin/sh", "/opt/docker/onbuild.sh"]
+ONBUILD ARG PROGRAM_NAME="bash"
+ONBUILD RUN /usr/bin/sh /opt/docker/onbuild.sh $PROGRAM_NAME
 ONBUILD USER user
+ONBUILD ENTRYPOINT ["/usr/bin/sh", "/opt/docker/entrypoint.sh"]
+ONBUILD CMD []

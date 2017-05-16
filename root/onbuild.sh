@@ -15,13 +15,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with chown .  If not, see <http://www.gnu.org/licenses/>.
 
-dnf update --assumeyes &&
+PROGRAM_NAME="${@}" &&
+    dnf update --assumeyes &&
     dnf install --assumeyes $(dnf provides "*bin/${PROGRAM_NAME}" | head --lines 2  | tail --lines 1 | cut --fields 1-2 --delimiter "-") &&
-    (cat <<EOF
+    (cat > /opt/docker/program.sh <<EOF
 #!/bin/sh
 
-"${PROGRAM_NAME}" "\${@}"
+"${PROGRAM_NAME}" \${@}"
 EOF
-    ) > /opt/docker/program.sh &&
+    ) &&
     dnf update --assumeyes &&
     dnf clean all
