@@ -21,7 +21,7 @@ PROGRAM_NAME="${@}" &&
     (cat > /opt/docker/program.sh <<EOF
 #!/bin/sh
 
-"${PROGRAM_NAME}" \${@}"
+"${PROGRAM_NAME}" "\${@}"
 EOF
     ) &&
     dnf update --assumeyes &&
